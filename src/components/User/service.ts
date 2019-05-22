@@ -1,8 +1,8 @@
 import * as Joi from 'joi';
-import UserModel, { IUserModel } from './model';
+import UserModel, { IUserModelStatic } from './model';
 import UserValidation from './validation';
 import { IUserService } from './interface';
-import { Types } from 'mongoose';
+//import { Types } from 'mongoose';
 
 /**
  * @export
@@ -10,12 +10,12 @@ import { Types } from 'mongoose';
  */
 const UserService: IUserService = {
     /**
-     * @returns {Promise < IUserModel[] >}
+     * @returns {Promise < IUserModelStatic[] >}
      * @memberof UserService
      */
-    async findAll(): Promise < IUserModel[] > {
+    async findAll(): Promise < IUserModelStatic[] > {
         try {
-            return await UserModel.find({});
+            return await UserModel.findAll();
         } catch (error) {
             throw new Error(error.message);
         }
@@ -26,7 +26,7 @@ const UserService: IUserService = {
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async findOne(id: string): Promise < IUserModel > {
+    async findOne(id: string): Promise < IUserModelStatic > {
         try {
             const validate: Joi.ValidationResult < {
                 id: string
@@ -51,15 +51,15 @@ const UserService: IUserService = {
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async insert(body: IUserModel): Promise < IUserModel > {
+    async insert(body: IUserModelStatic): Promise < IUserModelStatic > {
         try {
-            const validate: Joi.ValidationResult < IUserModel > = UserValidation.createUser(body);
+            const validate: Joi.ValidationResult < IUserModelStatic > = UserValidation.createUser(body);
 
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
 
-            const user: IUserModel = await UserModel.create(body);
+            const user: IUserModelStatic = await UserModel.create(body);
 
             return user;
         } catch (error) {
@@ -72,7 +72,7 @@ const UserService: IUserService = {
      * @returns {Promise < IUserModel >}
      * @memberof UserService
      */
-    async remove(id: string): Promise < IUserModel > {
+    async remove(id: string): Promise < IUserModelStatic > {
         try {
             const validate: Joi.ValidationResult < {
                 id: string
@@ -84,7 +84,7 @@ const UserService: IUserService = {
                 throw new Error(validate.error.message);
             }
 
-            const user: IUserModel = await UserModel.findOneAndRemove({
+            const user: IUserModelStatic = await UserModel.findOneAndRemove({
                 _id: Types.ObjectId(id)
             });
 
