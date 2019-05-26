@@ -63,9 +63,9 @@ export async function create(req: Request, res: Response, next: NextFunction): P
  */
 export async function remove(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const user: IUserModel = await UserService.remove(req.params.id);
+        await UserService.remove(req.params.id);
 
-        res.status(200).json(user);
+        res.status(200);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

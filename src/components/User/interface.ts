@@ -1,4 +1,4 @@
-import { IUserModelStatic } from './model';
+import { IUserModel } from './model';
 
 /**
  * @export
@@ -7,29 +7,29 @@ import { IUserModelStatic } from './model';
 export interface IUserService {
 
     /**
-     * @returns {Promise<IUserModelStatic[]>}
+     * @returns {Promise<IUserModel[]>}
      * @memberof IUserService
      */
-    findAll(): Promise<IUserModelStatic[]>;
+    findAll(): Promise<IUserModel[]>;
 
     /**
      * @param {string} code
-     * @returns {Promise<IUserModelStatic>}
+     * @returns {Promise<IUserModel>}
      * @memberof IUserService
      */
-    findOne(code: string): Promise<IUserModelStatic>;
+    findOne(code: string): Promise<IUserModel>;
 
     /**
      * @param {IUserModel} IUserModel
-     * @returns {Promise<IUserModelStatic>}
+     * @returns {Promise<IUserModel>}
      * @memberof IUserService
      */
-    insert(IUserModel: IUserModelStatic): Promise<IUserModelStatic>;
+    insert(IUserModel: IUserModel): Promise<IUserModel>;
 
     /**
      * @param {string} id
-     * @returns {Promise<IUserModelStatic>}
+     * @returns {void}
      * @memberof IUserService
      */
-    remove(id: string): Promise<IUserModelStatic>;
+    remove(id: string): void;
 }

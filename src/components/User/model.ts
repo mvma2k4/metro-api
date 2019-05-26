@@ -17,16 +17,8 @@ export interface IUserModel extends Model {
     passwordResetToken: string;
     passwordResetExpires: Date;
 
-    facebook: string;
     tokens: AuthToken[];
 
-    profile: {
-        name: string,
-        gender: string,
-        location: string,
-        website: string,
-        picture: string
-    };
     comparePassword: (password: string) => Promise < boolean > ;
     gravatar: (size: number) => string;
 }
@@ -69,11 +61,11 @@ export type AuthToken = {
  *      items:
  *        $ref: '#/components/schemas/UserSchema'
  */
- const UserModel = <IUserModelStatic>sequelize.define('UserModel', {
-     id: {
+export const UserModel = <IUserModelStatic>sequelize.define('user', {
+    uuid: {
         primaryKey: true,
-        type: DataTypes.UUIDV4,
-        allowNull : false
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
     },
     email: {
         type: DataTypes.STRING(128),
@@ -141,5 +133,3 @@ UserModel.prototype.gravatar = function (size: number): string {
 
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
-
-export default connections.sequelize.model ('UserModel');

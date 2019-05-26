@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 import AuthValidation from './validation';
-import UserModel, { IUserModel } from '../User/model';
+import { UserModel, IUserModel, IUserModelStatic } from '../User/model';
 import { IAuthService } from './interface';
 
 /**
@@ -22,20 +22,20 @@ const AuthService: IAuthService = {
                 throw new Error(validate.error.message);
             }
 
-            const user: IUserModel = new UserModel({
+            const user = new UserModel({
                 email: body.email,
                 password: body.password
             });
 
-            const query: IUserModel = await UserModel.findOne({
-                email: body.email
+            const query: IUserModel = await UserModel.findOne({ 
+                where: { email: body.email }
             });
 
             if (query) {
                 throw new Error('This email already exists');
             }
 
-            const saved: IUserModel = await user.save();
+            const saved: IUserModel = <IUserModel>await user.save();
 
             return saved;
         } catch (error) {
@@ -56,7 +56,7 @@ const AuthService: IAuthService = {
             }
 
             const user: IUserModel = await UserModel.findOne({
-                email: body.email
+                where: { email: body.email }
             });
         
             const isMatched: boolean = await user.comparePassword(body.password);

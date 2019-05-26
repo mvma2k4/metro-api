@@ -16,7 +16,7 @@ const connectOptions: IConnectOptions = {
     useNewUrlParser: true,
 };
 
-const MONGO_URI: string = `${config.database.MONGODB_URI}${config.database.MONGODB_DB_MAIN}`;
+const MONGO_URI: string = `${config.database.DB_URI}${config.database.DB_DB_MAIN}`;
 
 export const db: mongoose.Connection = mongoose.createConnection(MONGO_URI, connectOptions);
 
