@@ -5,6 +5,7 @@ import * as crypto from 'crypto';
 import { Model, DataTypes, BuildOptions, CreateOptions } from 'sequelize';
 import { NextFunction } from 'express';
 import { sequelize } from '../../config/connection/connection-pg';
+import { PermissionModel } from '../Permission/model';
 
 /**
  * @export
@@ -14,8 +15,10 @@ import { sequelize } from '../../config/connection/connection-pg';
 export interface IUserModel extends Model {
     email: string;
     password: string;
+    fullname: string;
     passwordResetToken: string;
     passwordResetExpires: Date;
+    permission_uuid:string;
 
     tokens: AuthToken[];
 
@@ -71,14 +74,24 @@ export const UserModel = <IUserModelStatic>sequelize.define('user', {
         type: DataTypes.STRING(128),
         unique: true,
     },
+    fullname: {
+      type: DataTypes.STRING(128),
+      allowNull: true,
+  },
     password: {
         type: DataTypes.STRING,
         allowNull: false
     },
     passwordResetToken: DataTypes.STRING(128),
     passwordResetExpires: DataTypes.DATE,
-    tokens: DataTypes.ARRAY(DataTypes.TEXT)
+    tokens: DataTypes.ARRAY(DataTypes.TEXT),
+    permission_uuid: {
+      type: DataTypes.UUID,
+      allowNull:true
+    }
 });
+
+UserModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
 
 UserModel.beforeCreate(function(user, options) {
     return cryptPassword(user.password)

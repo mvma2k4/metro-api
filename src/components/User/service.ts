@@ -46,6 +46,36 @@ const UserService: IUserService = {
     },
 
     /**
+     * @param {string} id 
+     * @param {IUserModel} body
+     * @returns {Promise < IUserModel >}
+     * @memberof UserService
+     */
+    async updateOne(id: string, body: IUserModel): Promise < IUserModel > {
+        try {
+            const validate: Joi.ValidationResult < {
+                id: string
+            } > = UserValidation.getUser({
+                id
+            });
+
+            if (validate.error) {
+                throw new Error(validate.error.message);
+            }
+
+            return await UserModel.update(
+                { fullname: body.fullname, permission_uuid: body.permission_uuid },
+                { returning: true, where: { uuid: id} }
+            )
+            .then(([ rowsUpdate, [updatedUser] ]) => {
+                return updatedUser
+            });
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
+    /**
      * @param {IUserModel} user
      * @returns {Promise < IUserModel >}
      * @memberof UserService
