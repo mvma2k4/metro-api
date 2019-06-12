@@ -5,8 +5,8 @@ dotenv.config();
 interface IConfig {
     port: string | number;
     database: {
-        MONGODB_URI: string;
-        MONGODB_DB_MAIN: string;
+        DB_URI: string;
+        DB_DB_MAIN: string;
     };
     secret: string;
 }
@@ -16,8 +16,8 @@ const NODE_ENV: string = process.env.NODE_ENV || 'development';
 const development: IConfig = {
     port: process.env.PORT || 3000,
     database: {
-        MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/',
-        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db'
+        DB_URI: process.env.DB_URI || 'postgres://metrouser:P4ssw0rd@localhost:5432/',
+        DB_DB_MAIN: process.env.DB_DB_MAIN || 'metro-db'
     },
     secret: process.env.SECRET || '@QEGTUI'
 };
@@ -25,8 +25,8 @@ const development: IConfig = {
 const production: IConfig = {
     port: process.env.PORT || 3000,
     database: {
-        MONGODB_URI: process.env.MONGODB_URI || 'mongodb://production_uri/',
-        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db'
+        DB_URI: process.env.DB_URI || 'postgres://metrouser:P4ssw0rd@localhost:5432/',
+        DB_DB_MAIN: process.env.DB_DB_MAIN || 'metro-db'
     },
     secret: process.env.SECRET || '@QEGTUI'
 };
@@ -34,8 +34,8 @@ const production: IConfig = {
 const test: IConfig = {
     port: process.env.PORT || 3000,
     database: {
-        MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017',
-        MONGODB_DB_MAIN: 'test_users_db'
+        DB_URI: process.env.DB_URI || 'postgres://metrouser:P4ssw0rd@localhost:5432/',
+        DB_DB_MAIN: 'test_users_db'
     },
     secret: process.env.SECRET || '@QEGTUI'
 };

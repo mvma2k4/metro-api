@@ -1,6 +1,6 @@
-import UserService from './service';
+import PermissionService from './service';
 import { HttpError } from '../../config/error';
-import { IUserModel } from './model';
+import { IPermissionModel } from './model';
 import { NextFunction, Request, Response } from 'express';
 
 /**
@@ -12,7 +12,7 @@ import { NextFunction, Request, Response } from 'express';
  */
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const users: IUserModel[] = await UserService.findAll();
+        const users: IPermissionModel[] = await PermissionService.findAll();
 
         res.status(200).json(users);
     } catch (error) {
@@ -29,7 +29,7 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
  */
 export async function findOne(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const user: IUserModel = await UserService.findOne(req.params.id);
+        const user: IPermissionModel = await PermissionService.findOne(req.params.id);
 
         res.status(200).json(user);
     } catch (error) {
@@ -46,7 +46,7 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  */
 export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const user: IUserModel = await UserService.insert(req.body);
+        const user: IPermissionModel = await PermissionService.insert(req.body);
 
         res.status(201).json(user);
     } catch (error) {
@@ -63,7 +63,7 @@ export async function create(req: Request, res: Response, next: NextFunction): P
  */
 export async function remove(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        await UserService.remove(req.params.id);
+        await PermissionService.remove(req.params.id);
 
         res.status(200);
     } catch (error) {

@@ -20,6 +20,14 @@ export interface IUserService {
     findOne(code: string): Promise<IUserModel>;
 
     /**
+     * @param {string} code
+     * @param {IUserModel} IUserModel
+     * @returns {Promise<IUserModel>}
+     * @memberof IUserService
+     */
+    updateOne(code: string, IUserModel: IUserModel): Promise<IUserModel>;
+
+    /**
      * @param {IUserModel} IUserModel
      * @returns {Promise<IUserModel>}
      * @memberof IUserService
@@ -28,8 +36,8 @@ export interface IUserService {
 
     /**
      * @param {string} id
-     * @returns {Promise<IUserModel>}
+     * @returns {void}
      * @memberof IUserService
      */
-    remove(id: string): Promise<IUserModel>;
+    remove(id: string): void;
 }

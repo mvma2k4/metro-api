@@ -1,33 +1,34 @@
 import * as bcrypt from 'bcrypt';
-import * as connections from '../../config/connection/connection';
+import * as connections from '../../config/connection/connection-pg';
 import * as crypto from 'crypto';
-import { Document, Schema } from 'mongoose';
+//import { Document, Schema } from 'mongoose';
+import { Model, DataTypes, BuildOptions, CreateOptions } from 'sequelize';
 import { NextFunction } from 'express';
+import { sequelize } from '../../config/connection/connection-pg';
+import { PermissionModel } from '../Permission/model';
 
 /**
  * @export
  * @interface IUserModel
  * @extends {Document}
  */
-export interface IUserModel extends Document {
+export interface IUserModel extends Model {
     email: string;
     password: string;
+    fullname: string;
     passwordResetToken: string;
     passwordResetExpires: Date;
+    permission_uuid:string;
 
-    facebook: string;
     tokens: AuthToken[];
 
-    profile: {
-        name: string,
-        gender: string,
-        location: string,
-        website: string,
-        picture: string
-    };
     comparePassword: (password: string) => Promise < boolean > ;
     gravatar: (size: number) => string;
 }
+
+export type IUserModelStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): IUserModel;
+  }
 
 export type AuthToken = {
     accessToken: string,
@@ -63,42 +64,65 @@ export type AuthToken = {
  *      items:
  *        $ref: '#/components/schemas/UserSchema'
  */
-const UserSchema: Schema = new Schema({
-    email: {
-        type: String,
-        unique: true,
-        trim: true
+export const UserModel = <IUserModelStatic>sequelize.define('user', {
+    uuid: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
     },
-    password: String,
-    passwordResetToken: String,
-    passwordResetExpires: Date,
-    tokens: Array,
-}, {
-    collection: 'usermodel',
-    versionKey: false
-}).pre('save', async function (next: NextFunction): Promise < void > {
-    const user: any = this; // tslint:disable-line
-
-    if (!user.isModified('password')) {
-        return next();
-    }
-
-    try {
-        const salt: string = await bcrypt.genSalt(10);
-
-        const hash: string = await bcrypt.hash(user.password, salt);
-
-        user.password = hash;
-        next();
-    } catch (error) {
-        return next(error);
+    email: {
+        type: DataTypes.STRING(128),
+        unique: true,
+    },
+    fullname: {
+      type: DataTypes.STRING(128),
+      allowNull: true,
+  },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    passwordResetToken: DataTypes.STRING(128),
+    passwordResetExpires: DataTypes.DATE,
+    tokens: DataTypes.ARRAY(DataTypes.TEXT),
+    permission_uuid: {
+      type: DataTypes.UUID,
+      allowNull:true
     }
 });
+
+UserModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
+
+UserModel.beforeCreate(function(user, options) {
+    return cryptPassword(user.password)
+      .then(success => {
+        user.password = success;
+      })
+      .catch(err => {
+        if (err) console.log(err);
+      });
+  });
+
+function cryptPassword(password : string) {
+  console.log("cryptPassword" + password);
+  return new Promise<string>(function(resolve, reject) {
+    bcrypt.genSalt(10, function(err, salt) {
+      // Encrypt password using bycrpt module
+      if (err) return reject(err);
+
+      bcrypt.hash(password, salt, function(err, hash) {
+        if (err) return reject(err);
+        return resolve(hash);
+      });
+    });
+  });
+};
+
 
 /**
  * Method for comparing passwords
  */
-UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise < boolean > {
+UserModel.prototype.comparePassword = async function (candidatePassword: string): Promise < boolean > {
     try {
         const match: boolean = await bcrypt.compare(candidatePassword, this.password);
 
@@ -111,7 +135,7 @@ UserSchema.methods.comparePassword = async function (candidatePassword: string):
 /**
  * Helper method for getting user's gravatar.
  */
-UserSchema.methods.gravatar = function (size: number): string {
+UserModel.prototype.gravatar = function (size: number): string {
     if (!size) {
         size = 200;
     }
@@ -122,5 +146,3 @@ UserSchema.methods.gravatar = function (size: number): string {
 
     return `https://gravatar.com/avatar/${md5}?s=${size}&d=retro`;
 };
-
-export default connections.db.model < IUserModel > ('UserModel', UserSchema);
