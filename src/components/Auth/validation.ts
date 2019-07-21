@@ -25,6 +25,7 @@ class AuthValidation extends Validation {
         params: IUserModel
     ): Joi.ValidationResult < IUserModel > {
         const schema: Joi.Schema = Joi.object().keys({
+            fullname: Joi.string().required(),
             password: Joi.string().required(),
             email: Joi.string().email({
                 minDomainAtoms: 2
@@ -42,6 +43,7 @@ class AuthValidation extends Validation {
         params: IUserModel
     ): Joi.ValidationResult < IUserModel > {
         const schema: Joi.Schema = Joi.object().keys({
+            fullname: Joi.string().required(),
             password: Joi.string().required(),
             email: Joi.string().email({
                 minDomainAtoms: 2

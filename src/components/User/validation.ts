@@ -26,7 +26,7 @@ class UserValidation extends Validation {
         params: IUserModel
     ): Joi.ValidationResult < IUserModel > {
         const schema: Joi.Schema = Joi.object().keys({
-            name: Joi.string().required(),
+            fullname: Joi.string().required(),
             email: Joi.string().email({
                 minDomainAtoms: 2
             }).required()
