@@ -23,6 +23,7 @@ const AuthService: IAuthService = {
             }
 
             const user = new UserModel({
+                fullname: body.fullname,
                 email: body.email,
                 password: body.password
             });

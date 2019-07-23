@@ -26,6 +26,7 @@
                 "$ref": "#/components/schemas/UserSchema"
               },
               "example": {
+                "fullname":"test user",
                 "email": "test.user@mail.com",
                 "password": "test_test"
               }
