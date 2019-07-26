@@ -86,7 +86,7 @@ const PermissionService: IPermissionService = {
             // }
 
             await PermissionModel.findByPk(id).then((permissionFound)=>{
-                permissionFound.destroy();
+                return permissionFound.destroy();
             });
         } catch (error) {
             throw new Error(error.message);

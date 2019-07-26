@@ -61,6 +61,23 @@ export async function create(req: Request, res: Response, next: NextFunction): P
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
+export async function update(req: Request, res: Response, next: NextFunction): Promise < void > {
+    try {
+        const user: IUserModel = await UserService.updateOne(req.body.uuid, req.body);
+
+        res.status(201).json(user);
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+    }
+}
+
+/**
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ * @returns {Promise < void >}
+ */
 export async function remove(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
         await UserService.remove(req.params.id);

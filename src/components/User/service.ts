@@ -64,7 +64,7 @@ const UserService: IUserService = {
             }
 
             return await UserModel.update(
-                { fullname: body.fullname, permission_uuid: body.permission_uuid },
+                { fullname: body.fullname },
                 { returning: true, where: { uuid: id} }
             )
             .then(([ rowsUpdate, [updatedUser] ]) => {
@@ -98,7 +98,7 @@ const UserService: IUserService = {
 
     /**
      * @param {string} id
-     * @returns {void}
+     * @returns  {Promise < IUserModel >}
      * @memberof UserService
      */
     async remove(id: string) {
@@ -113,9 +113,11 @@ const UserService: IUserService = {
                 throw new Error(validate.error.message);
             }
 
-            await UserModel.findByPk(id).then((userFound)=>{
-                userFound.destroy();
+
+            const user = await UserModel.findByPk(id).then((userFound)=>{
+               return userFound.destroy();
             });
+            return user;
         } catch (error) {
             throw new Error(error.message);
         }

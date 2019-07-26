@@ -73,6 +73,44 @@ router.get('/', UserComponent.findAll);
 router.post('/', UserComponent.create);
 
 /**
+ * PUT method route
+ * @example http://localhost:PORT/v1/users
+ * 
+ * @swagger
+ * /v1/users:
+ *   post:
+ *      description: Create new User
+ *      tags: ["users"]
+ *      security:
+ *       - ApiKeyAuth: []
+ *      requestBody:
+ *        description: user creation request body
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/UserSchema'
+ *            example:
+ *              name: userName
+ *              email: test.user@mail.com
+ *      responses:
+ *        201:
+ *          description: return created user
+ *          content:
+ *            application/json:
+ *              schema:
+ *                oneOf:
+ *                  - $ref: '#/components/schemas/UserSchema'
+ *        default:
+ *          description: unexpected error
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Error'
+ */
+router.put('/', UserComponent.update);
+
+/**
  * GET method route 
  * @example http://localhost:PORT/v1/users/:id
  * 
