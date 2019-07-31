@@ -4,6 +4,8 @@ import * as jwtConfig from '../config/middleware/jwtAuth';
 import * as swaggerUi from 'swagger-ui-express';
 import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
+import CounterRouter from './CounterRouter';
+import OperatorRouter from './OperatorRouter';
 import PermissionRouter from './PermissionRouter';
 let swaggerDoc: Object;
 
@@ -31,6 +33,22 @@ export function init(app: express.Application): void {
      * @constructs
      */
     app.use('/v1/users', jwtConfig.isAuthenticated, UserRouter);
+
+    /**
+     * @description
+     *  Forwards any requests to the /v1/users URI to our UserRouter
+     *  Also, check if user authenticated
+     * @constructs
+     */
+    app.use('/v1/counters', jwtConfig.isAuthenticated, CounterRouter);
+
+    /**
+     * @description
+     *  Forwards any requests to the /v1/users URI to our UserRouter
+     *  Also, check if user authenticated
+     * @constructs
+     */
+    app.use('/v1/operators', jwtConfig.isAuthenticated, OperatorRouter);
 
      /**
      * @description
