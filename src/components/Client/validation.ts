@@ -1,30 +1,30 @@
 import * as Joi from 'joi';
 import Validation from '../validation';
-import { IOperatorModel } from './model';
+import { IClientModel } from './model';
 
 /**
  * @export
- * @class OperatorValidation
+ * @class ClientValidation
  * @extends Validation
  */
-class OperatorValidation extends Validation {
+class ClientValidation extends Validation {
 
     /**
-     * Creates an instance of OperatorValidation.
-     * @memberof OperatorValidation
+     * Creates an instance of ClientValidation.
+     * @memberof ClientValidation
      */
     constructor() {
         super();
     }
 
     /**
-     * @param {IOperatorModel} params
-     * @returns {Joi.ValidationResult<IOperatorModel >}
-     * @memberof OperatorValidation
+     * @param {IClientModel} params
+     * @returns {Joi.ValidationResult<IClientModel >}
+     * @memberof ClientValidation
      */
-    createOperator(
-        params: IOperatorModel
-    ): Joi.ValidationResult < IOperatorModel > {
+    createClient(
+        params: IClientModel
+    ): Joi.ValidationResult < IClientModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
             address: Joi.string().required(),
@@ -37,9 +37,9 @@ class OperatorValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof OperatorValidation
+     * @memberof ClientValidation
      */
-    getOperator(
+    getClient(
         body: {
             id: string
         }
@@ -56,9 +56,9 @@ class OperatorValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof OperatorValidation
+     * @memberof ClientValidation
      */
-    removeOperator(
+    removeClient(
         body: {
             id: string
         }
@@ -73,4 +73,4 @@ class OperatorValidation extends Validation {
     }
 }
 
-export default new OperatorValidation();
+export default new ClientValidation();

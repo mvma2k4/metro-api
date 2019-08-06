@@ -1,6 +1,6 @@
-import UserService from './service';
+import ProviderService from './service';
 import { HttpError } from '../../config/error';
-import { IUserModel } from './model';
+import { IProviderModel } from './model';
 import { NextFunction, Request, Response } from 'express';
 
 /**
@@ -12,9 +12,9 @@ import { NextFunction, Request, Response } from 'express';
  */
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const users: IUserModel[] = await UserService.findAll();
+        const counters: IProviderModel[] = await ProviderService.findAll();
 
-        res.status(200).json(users);
+        res.status(200).json(counters);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -29,9 +29,9 @@ export async function findAll(req: Request, res: Response, next: NextFunction): 
  */
 export async function findOne(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const user: IUserModel = await UserService.findOne(req.params.id);
+        const Provider: IProviderModel = await ProviderService.findOne(req.params.id);
 
-        res.status(200).json(user);
+        res.status(200).json(Provider);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -46,9 +46,9 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  */
 export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const user: IUserModel = await UserService.insert(req.body);
+        const Provider: IProviderModel = await ProviderService.insert(req.body);
 
-        res.status(201).json(user);
+        res.status(201).json(Provider);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -63,9 +63,9 @@ export async function create(req: Request, res: Response, next: NextFunction): P
  */
 export async function update(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const user: IUserModel = await UserService.updateOne(req.body.uuid, req.body);
+        const Provider: IProviderModel = await ProviderService.updateOne(req.body.uuid, req.body);
 
-        res.status(201).json(user);
+        res.status(201).json(Provider);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
@@ -80,8 +80,8 @@ export async function update(req: Request, res: Response, next: NextFunction): P
  */
 export async function remove(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const result = await UserService.remove(req.params.id);
-        console.log(result);
+        await ProviderService.remove(req.params.id);
+
         res.status(200);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));

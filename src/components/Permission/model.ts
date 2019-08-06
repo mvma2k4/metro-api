@@ -17,35 +17,6 @@ export type IPermissionModelStatic = typeof Model & {
     new (values?: object, options?: BuildOptions): IPermissionModel;
   }
 
-/**
- * @swagger
- * components:
- *  schemas:
- *    UserSchema:
- *      required:
- *        - email
- *        - name
- *      properties:
- *        id:
- *          type: string
- *        name:
- *          type: string
- *        email:
- *          type: string
- *        password:
- *          type: string
- *        passwordResetToken:
- *          type: string
- *        passwordResetExpires:
- *          type: string
- *          format: date
- *        tokens:
- *          type: array
- *    Users:
- *      type: array
- *      items:
- *        $ref: '#/components/schemas/UserSchema'
- */
 export const PermissionModel = <IPermissionModelStatic>sequelize.define('permission', {
     uuid: {
         primaryKey: true,

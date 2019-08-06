@@ -9,10 +9,10 @@ import { PermissionModel } from '../Permission/model';
 
 /**
  * @export
- * @interface IOperatorModel
+ * @interface IProviderModel
  * @extends {Document}
  */
-export interface IOperatorModel extends Model {
+export interface IProviderModel extends Model {
     address: string;
     perc: number;
     name: string;
@@ -22,8 +22,8 @@ export interface IOperatorModel extends Model {
     tokens: AuthToken[];
 }
 
-export type IOperatorModelStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): IOperatorModel;
+export type IProviderModelStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): IProviderModel;
   }
 
 export type AuthToken = {
@@ -35,7 +35,7 @@ export type AuthToken = {
  * @swagger
  * components:
  *  schemas:
- *    OperatorSchema:
+ *    ProviderSchema:
  *      required:
  *        - email
  *        - name
@@ -55,12 +55,12 @@ export type AuthToken = {
  *          format: date
  *        tokens:
  *          type: array
- *    Operators:
+ *    Providers:
  *      type: array
  *      items:
- *        $ref: '#/components/schemas/OperatorSchema'
+ *        $ref: '#/components/schemas/ProviderSchema'
  */
-export const OperatorModel = <IOperatorModelStatic>sequelize.define('operator', {
+export const ProviderModel = <IProviderModelStatic>sequelize.define('provider', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,
@@ -90,5 +90,5 @@ export const OperatorModel = <IOperatorModelStatic>sequelize.define('operator', 
     }
 });
 
-OperatorModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
+ProviderModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
 

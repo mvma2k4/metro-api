@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { OperatorComponent } from '../components';
+import { ClientComponent } from '../components';
 
 /**
  * @constant {express.Router}
@@ -11,20 +11,20 @@ const router: Router = Router();
  * @example http://localhost:PORT/v1/counters
  * 
  * @swagger
- * /v1/Counters:
+ * /v1/Clients:
  *   get:
- *     description: Get all stored Counters in Database
- *     tags: ["Counters"]
+ *     description: Get all stored Clients in Database
+ *     tags: ["Clients"]
  *     security:
  *      - ApiKeyAuth: []
  *     responses:
  *       200:
- *         description: An array of Counters
+ *         description: An array of Clients
  *         content:
  *           application/json:
  *             schema:
  *               oneOf:
- *                - $ref: '#/components/schemas/Counters'
+ *                - $ref: '#/components/schemas/Clients'
  *       default:
  *          description: unexpected error
  *          content:
@@ -32,37 +32,37 @@ const router: Router = Router();
  *              schema:
  *                $ref: '#/components/schemas/Error'
  */
-router.get('/', OperatorComponent.findAll);
+router.get('/', ClientComponent.findAll);
 
 /**
  * POST method route
  * @example http://localhost:PORT/v1/counters
  * 
  * @swagger
- * /v1/Counters:
+ * /v1/Clients:
  *   post:
- *      description: Create new Counter
- *      tags: ["Counters"]
+ *      description: Create new Client
+ *      tags: ["Clients"]
  *      security:
  *       - ApiKeyAuth: []
  *      requestBody:
- *        description: Counter creation request body
+ *        description: Client creation request body
  *        required: true
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/CounterSchema'
+ *              $ref: '#/components/schemas/ClientSchema'
  *            example:
- *              name: CounterName
- *              email: test.Counter@mail.com
+ *              name: ClientName
+ *              email: test.Client@mail.com
  *      responses:
  *        201:
- *          description: return created Counter
+ *          description: return created Client
  *          content:
  *            application/json:
  *              schema:
  *                oneOf:
- *                  - $ref: '#/components/schemas/CounterSchema'
+ *                  - $ref: '#/components/schemas/ClientSchema'
  *        default:
  *          description: unexpected error
  *          content:
@@ -70,37 +70,37 @@ router.get('/', OperatorComponent.findAll);
  *              schema:
  *                $ref: '#/components/schemas/Error'
  */
-router.post('/', OperatorComponent.create);
+router.post('/', ClientComponent.create);
 
 /**
  * PUT method route
  * @example http://localhost:PORT/v1/counters
  * 
  * @swagger
- * /v1/Counters:
+ * /v1/Clients:
  *   post:
- *      description: Create new Counter
- *      tags: ["Counters"]
+ *      description: Create new Client
+ *      tags: ["Clients"]
  *      security:
  *       - ApiKeyAuth: []
  *      requestBody:
- *        description: Counter creation request body
+ *        description: Client creation request body
  *        required: true
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/CounterSchema'
+ *              $ref: '#/components/schemas/ClientSchema'
  *            example:
- *              name: CounterName
- *              email: test.Counter@mail.com
+ *              name: ClientName
+ *              email: test.Client@mail.com
  *      responses:
  *        201:
- *          description: return created Counter
+ *          description: return created Client
  *          content:
  *            application/json:
  *              schema:
  *                oneOf:
- *                  - $ref: '#/components/schemas/CounterSchema'
+ *                  - $ref: '#/components/schemas/ClientSchema'
  *        default:
  *          description: unexpected error
  *          content:
@@ -108,65 +108,65 @@ router.post('/', OperatorComponent.create);
  *              schema:
  *                $ref: '#/components/schemas/Error'
  */
-router.put('/', OperatorComponent.update);
+router.put('/', ClientComponent.update);
 
 /**
  * GET method route 
  * @example http://localhost:PORT/v1/counters/:id
  * 
  * @swagger
- * /v1/Counters/{id}:
+ * /v1/Clients/{id}:
  *  get:
- *    description: Get Counter by CounterId
- *    tags: ["Counters"]
+ *    description: Get Client by ClientId
+ *    tags: ["Clients"]
  *    security:
  *      - ApiKeyAuth: []
  *    parameters:
  *      - in: path
  *        name: id
- *        description: the unique CounterId
+ *        description: the unique ClientId
  *        required: true
  *        schema:
  *          type: string
  *    responses:
  *      200:
- *        description: return Counter by id
+ *        description: return Client by id
  *        content:
  *          application/json:
  *            schema:
  *              oneOf:
- *                - $ref: '#/components/schemas/CounterSchema'
+ *                - $ref: '#/components/schemas/ClientSchema'
  */
-router.get('/:id', OperatorComponent.findOne);
+router.get('/:id', ClientComponent.findOne);
 
 /**
  * DELETE method route
  * @example  http://localhost:PORT/v1/counters/:id
  * 
  * @swagger
- * /v1/Counters/{id}:
+ * /v1/Clients/{id}:
  *  delete:
- *    description: Delete Counter by CounterId
- *    tags: ["Counters"]
+ *    description: Delete Client by ClientId
+ *    tags: ["Clients"]
  *    security:
  *      - ApiKeyAuth: []
  *    parameters:
  *      - in: path
  *        name: id
- *        description: the unique CounterId
+ *        description: the unique ClientId
  *        required: true
  *        schema:
  *          type: string
  *    responses:
  *      200:
- *        description: return deleted Counter
+ *        description: return deleted Client
  *        content:
  *          application/json:
  *            schema:
  *              oneOf:
- *                - $ref: '#/components/schemas/CounterSchema'
+ *                - $ref: '#/components/schemas/ClientSchema'
  */
-router.delete('/:id', OperatorComponent.remove);
+router.delete('/:id', ClientComponent.remove);
 
 /**
  * @export {express.Router}

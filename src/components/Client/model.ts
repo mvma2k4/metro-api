@@ -6,25 +6,25 @@ import { Model, DataTypes, BuildOptions, CreateOptions } from 'sequelize';
 import { NextFunction } from 'express';
 import { sequelize } from '../../config/connection/connection-pg';
 import { PermissionModel } from '../Permission/model';
-import { ClientModel } from '../Client/model';
 
 /**
  * @export
- * @interface ICounterModel
+ * @interface IClientModel
  * @extends {Document}
  */
-export interface ICounterModel extends Model {
-    email: string;
+export interface IClientModel extends Model {
+    address: string;
     perc: number;
     name: string;
+    email: string;
     phone: string;
     permission_uuid:string;
 
     tokens: AuthToken[];
 }
 
-export type ICounterModelStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): ICounterModel;
+export type IClientModelStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): IClientModel;
   }
 
 export type AuthToken = {
@@ -32,24 +32,28 @@ export type AuthToken = {
     kind: string
 };
 
-export const CounterModel = <ICounterModelStatic>sequelize.define('counter', {
+export const ClientModel = <IClientModelStatic>sequelize.define('client', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
     },
-    email: {
+    address: {
         type: DataTypes.STRING(128),
         unique: true,
     },
     name: {
       type: DataTypes.STRING(128),
       allowNull: false,
-  },
-  phone: {
-    type: DataTypes.STRING(128),
-    allowNull: false,
-},
+    },
+    email: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
+    },
+    phone: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
+    },
     perc: {
         type: DataTypes.NUMBER,
         allowNull: true
@@ -59,14 +63,8 @@ export const CounterModel = <ICounterModelStatic>sequelize.define('counter', {
     permission_uuid: {
       type: DataTypes.UUID,
       allowNull:true
-    },
-
-    client_uuid: {
-        type: DataTypes.UUID,
-        allowNull:true
-      }
+    }
 });
 
-CounterModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
-CounterModel.hasOne(ClientModel, { foreignKey: 'client_uuid'})
+ClientModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
 
