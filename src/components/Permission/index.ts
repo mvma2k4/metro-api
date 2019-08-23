@@ -65,7 +65,7 @@ export async function remove(req: Request, res: Response, next: NextFunction): P
     try {
         await PermissionService.remove(req.params.id);
 
-        res.status(200);
+        res.status(200).json(null);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

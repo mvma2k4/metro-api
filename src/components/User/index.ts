@@ -78,11 +78,11 @@ export async function update(req: Request, res: Response, next: NextFunction): P
  * @param {NextFunction} next
  * @returns {Promise < void >}
  */
-export async function remove(req: Request, res: Response, next: NextFunction): Promise < void > {
+export async function remove(req: Request, res: Response, next: NextFunction) {
     try {
         const result = await UserService.remove(req.params.id);
-        console.log(result);
-        res.status(200);
+        console.log(`After Delete ${result}`);
+        res.status(200).json(result);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

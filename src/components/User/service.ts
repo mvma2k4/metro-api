@@ -101,7 +101,7 @@ const UserService: IUserService = {
      * @returns  {void}
      * @memberof UserService
      */
-    async remove(id: string){
+    async remove(id: string) : Promise<any>{
         try {
             const validate: Joi.ValidationResult < {
                 id: string
@@ -114,10 +114,11 @@ const UserService: IUserService = {
             }
 
 
-            return await UserModel.destroy({
+            return UserModel.destroy({
                 where: { uuid: id }
             }).then( deletedUser => {
                 console.log(`Deleted: ${deletedUser}`);
+                return deletedUser;
             });
             // UserModel.findByPk(id).then(userFound =>{
             //    return userFound.destroy();
