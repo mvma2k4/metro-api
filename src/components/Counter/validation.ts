@@ -28,6 +28,7 @@ class CounterValidation extends Validation {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
             address: Joi.string().required(),
+            client_uuid: Joi.string().required(),
             phone: Joi.string().required()
         });
 

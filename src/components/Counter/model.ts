@@ -14,7 +14,7 @@ import { ClientModel } from '../Client/model';
  * @extends {Document}
  */
 export interface ICounterModel extends Model {
-    email: string;
+    address: string;
     perc: number;
     name: string;
     phone: string;
@@ -38,9 +38,9 @@ export const CounterModel = <ICounterModelStatic>sequelize.define('counter', {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
     },
-    email: {
+    address: {
         type: DataTypes.STRING(128),
-        unique: true,
+        allowNull: true,
     },
     name: {
       type: DataTypes.STRING(128),
@@ -60,13 +60,12 @@ export const CounterModel = <ICounterModelStatic>sequelize.define('counter', {
       type: DataTypes.UUID,
       allowNull:true
     },
-
     client_uuid: {
         type: DataTypes.UUID,
         allowNull:true
       }
 });
 
-CounterModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
-CounterModel.hasOne(ClientModel, { foreignKey: 'client_uuid'})
+CounterModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
+CounterModel.hasOne(ClientModel, { foreignKey: 'uuid'})
 

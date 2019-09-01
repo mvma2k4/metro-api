@@ -12,9 +12,9 @@ import { NextFunction, Request, Response } from 'express';
  */
 export async function findAll(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
-        const clients: IClientModel[] = await ClientService.findAll();
+        const counters: IClientModel[] = await ClientService.findAll();
 
-        res.status(200).json(clients);
+        res.status(200).json(counters);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

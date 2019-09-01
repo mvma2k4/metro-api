@@ -46,7 +46,10 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  */
 export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
+        // console.log(req.body);
         const Counter: ICounterModel = await CounterService.insert(req.body);
+        
+        
 
         res.status(201).json(Counter);
     } catch (error) {

@@ -28,6 +28,7 @@ class ClientValidation extends Validation {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
             address: Joi.string().required(),
+            email: Joi.string().required(),
             phone: Joi.string().required()
         });
 

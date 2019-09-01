@@ -32,6 +32,35 @@ export type AuthToken = {
     kind: string
 };
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    ClientSchema:
+ *      required:
+ *        - email
+ *        - name
+ *      properties:
+ *        id:
+ *          type: string
+ *        name:
+ *          type: string
+ *        email:
+ *          type: string
+ *        password:
+ *          type: string
+ *        passwordResetToken:
+ *          type: string
+ *        passwordResetExpires:
+ *          type: string
+ *          format: date
+ *        tokens:
+ *          type: array
+ *    Clients:
+ *      type: array
+ *      items:
+ *        $ref: '#/components/schemas/ClientSchema'
+ */
 export const ClientModel = <IClientModelStatic>sequelize.define('client', {
     uuid: {
         primaryKey: true,
@@ -42,18 +71,18 @@ export const ClientModel = <IClientModelStatic>sequelize.define('client', {
         type: DataTypes.STRING(128),
         unique: true,
     },
+    email: {
+        type: DataTypes.STRING(128),
+        unique: true,
+    },
     name: {
       type: DataTypes.STRING(128),
       allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING(128),
-        allowNull: false,
-    },
-    phone: {
-        type: DataTypes.STRING(128),
-        allowNull: false,
-    },
+  },
+  phone: {
+    type: DataTypes.STRING(128),
+    allowNull: false,
+},
     perc: {
         type: DataTypes.NUMBER,
         allowNull: true
