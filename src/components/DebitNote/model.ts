@@ -31,9 +31,9 @@ export interface IDebitNoteModel extends Model {
     current_date: Date;
     expiration_date: Date;
 
-    change: Double;
-    amount_dollar: Double;
-    amount_currency: Double;
+    change: number;
+    amount_dollar: number;
+    amount_currency: number;
 
     settlement: Json;
 
