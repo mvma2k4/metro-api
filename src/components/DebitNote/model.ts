@@ -6,6 +6,8 @@ import { Model, DataTypes, BuildOptions, CreateOptions } from 'sequelize';
 import { NextFunction } from 'express';
 import { sequelize } from '../../config/connection/connection-pg';
 import { PermissionModel } from '../Permission/model';
+import { Double } from 'bson';
+import { Json } from 'sequelize/types/lib/utils';
 
 /**
  * @export
@@ -13,12 +15,29 @@ import { PermissionModel } from '../Permission/model';
  * @extends {Document}
  */
 export interface IDebitNoteModel extends Model {
-    address: string;
-    perc: number;
-    name: string;
-    phone: string;
-    permission_uuid:string;
+    code: string;
+    clientName: string;
+    client_uuid: string;
+    providerName: string;
+    provider_uuid: string;
+    counterName: string;
+    counter_uuid: string;
 
+    passenger: Text;
+    service: Text;
+    voucher: Text;
+    concept: Text;
+
+    current_date: Date;
+    expiration_date: Date;
+
+    change: Double;
+    amount_dollar: Double;
+    amount_currency: Double;
+
+    settlement: Json;
+
+    permission_uuid:string;
     tokens: AuthToken[];
 }
 
@@ -31,56 +50,86 @@ export type AuthToken = {
     kind: string
 };
 
-/**
- * @swagger
- * components:
- *  schemas:
- *    DebitNoteSchema:
- *      required:
- *        - email
- *        - name
- *      properties:
- *        id:
- *          type: string
- *        name:
- *          type: string
- *        email:
- *          type: string
- *        password:
- *          type: string
- *        passwordResetToken:
- *          type: string
- *        passwordResetExpires:
- *          type: string
- *          format: date
- *        tokens:
- *          type: array
- *    DebitNotes:
- *      type: array
- *      items:
- *        $ref: '#/components/schemas/DebitNoteSchema'
- */
-export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('provider', {
+
+export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debit', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
     },
-    address: {
+
+    
+    code: {
         type: DataTypes.STRING(128),
         unique: true,
     },
-    name: {
-      type: DataTypes.STRING(128),
-      allowNull: false,
-  },
-  phone: {
-    type: DataTypes.STRING(128),
-    allowNull: false,
-},
-    perc: {
-        type: DataTypes.NUMBER,
-        allowNull: true
+    clientName: {
+        type: DataTypes.STRING(128),
+        allowNull: true,
+    },
+    client_uuid: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
+    },
+    providerName: {
+        type: DataTypes.STRING(128),
+        allowNull: true,
+    },
+    provider_uuid: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
+    },
+    counterName: {
+        type: DataTypes.STRING(128),
+        allowNull: true,
+    },
+    counter_uuid: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
+    },
+
+    passenger: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    service: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    voucher: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+    },
+    concept: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+    },
+
+    current_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    expiration_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+
+    change: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+    },
+    amount_dollar: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+    },
+    amount_currency: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+    },
+
+    settlement: {
+        type: DataTypes.JSON,
+        allowNull: false,
     },
     
     tokens: DataTypes.ARRAY(DataTypes.TEXT),

@@ -64,7 +64,7 @@ const DebitNoteService: IDebitNoteService = {
             }
 
             return await DebitNoteModel.update(
-                { fullname: body.name },
+                { concept: body.concept },
                 { returning: true, where: { uuid: id} }
             )
             .then(([ rowsUpdate, [updatedDebitNote] ]) => {
