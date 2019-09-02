@@ -8,6 +8,7 @@ import CounterRouter from './CounterRouter';
 import ClientRouter from './ClientRouter';
 import ProviderRouter from './ProviderRouter';
 import PermissionRouter from './PermissionRouter';
+import DebitNoteRouter from './DebitNoteRouter';
 let swaggerDoc: Object;
 
 try {
@@ -58,6 +59,14 @@ export function init(app: express.Application): void {
      * @constructs
      */
     app.use('/v1/providers', jwtConfig.isAuthenticated, ProviderRouter);
+
+    /**
+     * @description
+     *  Forwards any requests to the /v1/debit URI to our UserRouter
+     *  Also, check if user authenticated
+     * @constructs
+     */
+    app.use('/v1/providers', jwtConfig.isAuthenticated, DebitNoteRouter);
 
      /**
      * @description
