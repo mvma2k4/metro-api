@@ -64,7 +64,9 @@ const ProviderService: IProviderService = {
             }
 
             return await ProviderModel.update(
-                { name: body.name },
+                { name: body.name,
+                  address: body.address,
+                  phone: body.phone },
                 { returning: true, where: { uuid: id} }
             )
             .then(([ rowsUpdate, [updatedProvider] ]) => {
