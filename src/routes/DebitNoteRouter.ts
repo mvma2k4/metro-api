@@ -14,7 +14,7 @@ const router: Router = Router();
  * /v1/Counters:
  *   get:
  *     description: Get all stored Counters in Database
- *     tags: ["Counters"]
+ *     tags: ["Debits"]
  *     security:
  *      - ApiKeyAuth: []
  *     responses:
@@ -42,7 +42,7 @@ router.get('/', DebitNoteComponent.findAll);
  * /v1/Counters:
  *   post:
  *      description: Create new Counter
- *      tags: ["Counters"]
+ *      tags: ["Debits"]
  *      security:
  *       - ApiKeyAuth: []
  *      requestBody:

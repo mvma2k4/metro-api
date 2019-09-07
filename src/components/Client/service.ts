@@ -64,7 +64,10 @@ const ClientService: IClientService = {
             }
 
             return await ClientModel.update(
-                { name: body.name },
+                { name: body.name,
+                  address: body.address,
+                  email: body.email,
+                  phone: body.phone },
                 { returning: true, where: { uuid: id} }
             )
             .then(([ rowsUpdate, [updatedClient] ]) => {
