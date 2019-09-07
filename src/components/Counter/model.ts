@@ -14,12 +14,10 @@ import { ClientModel } from '../Client/model';
  * @extends {Document}
  */
 export interface ICounterModel extends Model {
-    address: string;
-    perc: number;
+    email: string;
     name: string;
-    phone: string;
     permission_uuid:string;
-
+    client_uuid: string;
     tokens: AuthToken[];
 }
 
@@ -38,7 +36,7 @@ export const CounterModel = <ICounterModelStatic>sequelize.define('counter', {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
     },
-    address: {
+    email: {
         type: DataTypes.STRING(128),
         allowNull: true,
     },
@@ -46,14 +44,6 @@ export const CounterModel = <ICounterModelStatic>sequelize.define('counter', {
       type: DataTypes.STRING(128),
       allowNull: false,
   },
-  phone: {
-    type: DataTypes.STRING(128),
-    allowNull: false,
-},
-    perc: {
-        type: DataTypes.NUMBER,
-        allowNull: true
-    },
     
     tokens: DataTypes.ARRAY(DataTypes.TEXT),
     permission_uuid: {

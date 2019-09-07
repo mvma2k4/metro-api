@@ -64,7 +64,9 @@ const CounterService: ICounterService = {
             }
 
             return await CounterModel.update(
-                { name: body.name },
+                { name: body.name,
+                  email: body.email,
+                  client_uuid: body.client_uuid },
                 { returning: true, where: { uuid: id} }
             )
             .then(([ rowsUpdate, [updatedCounter] ]) => {
