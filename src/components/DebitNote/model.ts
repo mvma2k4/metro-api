@@ -20,12 +20,13 @@ export interface IDebitNoteModel extends Model {
     client_uuid: string;
     providerName: string;
     provider_uuid: string;
+    
     counterName: string;
     counter_uuid: string;
-
     passenger: Text;
     service: Text;
     voucher: Text;
+
     concept: Text;
 
     current_date: Date;
@@ -37,7 +38,10 @@ export interface IDebitNoteModel extends Model {
 
     settlement: Json;
 
+    state:number;
+
     permission_uuid:string;
+    
     tokens: AuthToken[];
 }
 
