@@ -90,5 +90,5 @@ export const ProviderModel = <IProviderModelStatic>sequelize.define('provider', 
     }
 });
 
-ProviderModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
+ProviderModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
 

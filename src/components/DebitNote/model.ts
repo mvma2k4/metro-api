@@ -55,7 +55,7 @@ export type AuthToken = {
 };
 
 
-export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debit', {
+export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debitnote', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,
@@ -101,7 +101,7 @@ export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debit', {
         allowNull: true,
     },
     voucher: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING(128),
         allowNull: true,
     },
     concept: {
@@ -136,12 +136,11 @@ export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debit', {
         allowNull: false,
     },
     
-    tokens: DataTypes.ARRAY(DataTypes.TEXT),
     permission_uuid: {
       type: DataTypes.UUID,
       allowNull:true
     }
 });
 
-DebitNoteModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
+DebitNoteModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
 

@@ -95,5 +95,5 @@ export const ClientModel = <IClientModelStatic>sequelize.define('client', {
     }
 });
 
-ClientModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
+ClientModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
 

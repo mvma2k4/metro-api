@@ -66,7 +66,7 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/v1/providers', jwtConfig.isAuthenticated, DebitNoteRouter);
+    app.use('/v1/debitnotes', jwtConfig.isAuthenticated, DebitNoteRouter);
 
      /**
      * @description
