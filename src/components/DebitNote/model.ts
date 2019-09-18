@@ -131,6 +131,11 @@ export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debitnote
         allowNull: false,
     },
 
+    state: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+    },
+
     settlement: {
         type: DataTypes.JSON,
         allowNull: false,
