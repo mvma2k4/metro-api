@@ -34,6 +34,8 @@ const router: Router = Router();
  */
 router.get('/', CounterComponent.findAll);
 
+router.get('/client/:id', CounterComponent.findAllByClient);
+
 /**
  * POST method route
  * @example http://localhost:PORT/v1/counters

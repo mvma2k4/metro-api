@@ -13,6 +13,12 @@ export interface ICounterService {
     findAll(): Promise<ICounterModel[]>;
 
     /**
+     * @returns {Promise<ICounterModel[]>}
+     * @memberof ICounterService
+     */
+    findAllByClient(id: string): Promise < ICounterModel[] > 
+
+    /**
      * @param {string} code
      * @returns {Promise<ICounterModel>}
      * @memberof ICounterService

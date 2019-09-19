@@ -22,6 +22,18 @@ const CounterService: ICounterService = {
         }
     },
 
+/**
+     * @returns {Promise < ICounterModel[] >}
+     * @memberof CounterService
+     */
+    async findAllByClient(id: string): Promise < ICounterModel[] > {
+        try {
+            return await CounterModel.findAll({ where: { client_uuid: id } });
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
     /**
      * @param {string} id
      * @returns {Promise < ICounterModel >}
