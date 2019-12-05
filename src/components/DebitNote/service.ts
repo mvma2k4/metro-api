@@ -1,5 +1,6 @@
 import * as Joi from 'joi';
 import { DebitNoteModel, IDebitNoteModel } from './model';
+import { DebitNoteDetailModel } from '../DebitNoteDetail/model';
 import DebitNoteValidation from './validation';
 import { IDebitNoteService } from './interface';
 import { where } from 'sequelize/types';
@@ -16,7 +17,7 @@ const DebitNoteService: IDebitNoteService = {
      */
     async findAll(): Promise < IDebitNoteModel[] > {
         try {
-            return await DebitNoteModel.findAll();
+            return await DebitNoteModel.findAll({ include: [ DebitNoteDetailModel ]});
         } catch (error) {
             throw new Error(error.message);
         }
@@ -39,7 +40,7 @@ const DebitNoteService: IDebitNoteService = {
                 throw new Error(validate.error.message);
             }
 
-            return await DebitNoteModel.findByPk(id);
+            return await DebitNoteModel.findByPk(id, { include: [ DebitNoteDetailModel ]});
         } catch (error) {
             throw new Error(error.message);
         }

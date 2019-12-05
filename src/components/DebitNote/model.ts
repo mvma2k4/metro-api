@@ -6,8 +6,9 @@ import { Model, DataTypes, BuildOptions, CreateOptions } from 'sequelize';
 import { NextFunction } from 'express';
 import { sequelize } from '../../config/connection/connection-pg';
 import { PermissionModel } from '../Permission/model';
-import { Double } from 'bson';
+import { IDebitNoteDetailModel, DebitNoteDetailModel } from '../DebitNoteDetail/model';
 import { Json } from 'sequelize/types/lib/utils';
+import { from } from 'rxjs';
 
 /**
  * @export
@@ -21,12 +22,6 @@ export interface IDebitNoteModel extends Model {
     providerName: string;
     provider_uuid: string;
     
-    counterName: string;
-    counter_uuid: string;
-    passenger: Text;
-    service: Text;
-    voucher: Text;
-
     concept: Text;
 
     current_date: Date;
@@ -41,6 +36,8 @@ export interface IDebitNoteModel extends Model {
     state:number;
 
     permission_uuid:string;
+
+    details: IDebitNoteDetailModel[];
     
     tokens: AuthToken[];
 }
@@ -82,27 +79,6 @@ export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debitnote
     provider_uuid: {
         type: DataTypes.STRING(128),
         allowNull: false,
-    },
-    counterName: {
-        type: DataTypes.STRING(128),
-        allowNull: true,
-    },
-    counter_uuid: {
-        type: DataTypes.STRING(128),
-        allowNull: false,
-    },
-
-    passenger: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-    },
-    service: {
-        type: DataTypes.TEXT,
-        allowNull: true,
-    },
-    voucher: {
-        type: DataTypes.STRING(128),
-        allowNull: true,
     },
     concept: {
         type: DataTypes.TEXT,
@@ -148,4 +124,5 @@ export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debitnote
 });
 
 DebitNoteModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
+DebitNoteModel.hasMany(DebitNoteDetailModel, { foreignKey: 'debitnote_uuid'})
 
