@@ -5,13 +5,25 @@ import * as ClientComponent from './Client';
 import * as ProviderComponent from './Provider';
 import * as PermissionComponent from './Permission';
 import * as DebitNoteComponent from './DebitNote';
+import * as DebitNoteDetailComponent from './DebitNoteDetail';
+import * as FeesInfoFieldComponent from './FeesInfoField';
+import * as ServiceClientFeesComponent from './ServiceClientFees';
+import * as ServiceInfoComponent from './ServiceInfo';
+import * as ServiceTypeComponent from './ServiceType';
+import * as ServiceTypeFieldComponent from './ServiceTypeField';
 
 export {
     AuthComponent, 
     UserComponent,
     CounterComponent,
     ClientComponent,
+    DebitNoteComponent,
+    DebitNoteDetailComponent,
+    FeesInfoFieldComponent,
     ProviderComponent,
     PermissionComponent,
-    DebitNoteComponent,
+    ServiceClientFeesComponent,
+    ServiceInfoComponent,
+    ServiceTypeComponent,
+    ServiceTypeFieldComponent,
 };
