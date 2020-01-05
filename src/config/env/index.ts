@@ -16,7 +16,7 @@ const NODE_ENV: string = process.env.NODE_ENV || 'development';
 const development: IConfig = {
     port: process.env.PORT || 3000,
     database: {
-        DB_URI: process.env.DB_URI || 'postgres://metrouser:P4ssw0rd@localhost:5432/',
+        DB_URI: process.env.DB_URI || 'postgres://postgres:P4ssw0rd@localhost:5432/',
         DB_DB_MAIN: process.env.DB_DB_MAIN || 'metro-db'
     },
     secret: process.env.SECRET || '@QEGTUI'

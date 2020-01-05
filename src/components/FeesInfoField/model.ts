@@ -6,6 +6,8 @@ import { Model, DataTypes, BuildOptions, CreateOptions } from 'sequelize';
 import { NextFunction } from 'express';
 import { sequelize } from '../../config/connection/connection-pg';
 import { PermissionModel } from '../Permission/model';
+import { ServiceClientFeesModel } from '../ServiceClientFees/model';
+import { FeesInfoFieldComponent } from '..';
 
 /**
  * @export
@@ -47,5 +49,5 @@ export const FeesInfoFieldModel = <IFeesInfoFieldModelStatic>sequelize.define('f
     }
 });
 
-FeesInfoFieldModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
+FeesInfoFieldModel.hasOne(PermissionModel, { foreignKey: 'uuid'});
 

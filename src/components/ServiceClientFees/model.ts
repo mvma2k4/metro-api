@@ -50,6 +50,4 @@ export const ServiceClientFeesModel = <IServiceClientFeesModelStatic>sequelize.d
     }
 });
 
-ServiceClientFeesModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
-ServiceClientFeesModel.hasMany(FeesInfoFieldModel)
-
+ServiceClientFeesModel.hasOne(PermissionModel, { foreignKey: 'uuid'});
