@@ -9,39 +9,35 @@ import { PermissionModel } from '../Permission/model';
 
 /**
  * @export
- * @interface IServiceTypeFieldModel
+ * @interface IFeesInfoFieldModel
  * @extends {Document}
  */
-export interface IServiceTypeFieldModel extends Model {
+export interface IFeesInfoFieldModel extends Model {
     name: string;
-    label: string;
-    data_type: string;
-    service_type_uuid: string;
+    percentage: number;
+    service_client_fees_uuid: string;
     permission_uuid:string;
 }
 
-export type IServiceTypeFieldModelStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): IServiceTypeFieldModel;
+export type IFeesInfoFieldModelStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): IFeesInfoFieldModel;
   }
 
-export const ServiceTypeFieldModel = <IServiceTypeFieldModelStatic>sequelize.define('service_type_field ', {
+
+export const FeesInfoFieldModel = <IFeesInfoFieldModelStatic>sequelize.define('fees_info_field', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
     },
-    label: {
-        type: DataTypes.STRING(128),
+    percentage: {
+        type: DataTypes.INTEGER,
         allowNull: false,},
     name: {
       type: DataTypes.STRING(128),
       allowNull: false,
   },
-  data_type: {
-    type: DataTypes.STRING(128),
-    allowNull: false,
-    },
-    service_type_uuid: {
+  service_client_fees_uuid: {
         type: DataTypes.UUID,
         allowNull:true
       },
@@ -51,5 +47,5 @@ export const ServiceTypeFieldModel = <IServiceTypeFieldModelStatic>sequelize.def
     }
 });
 
-ServiceTypeFieldModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
+FeesInfoFieldModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
 
