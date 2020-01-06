@@ -24,7 +24,7 @@ export type IServiceTypeFieldModelStatic = typeof Model & {
     new (values?: object, options?: BuildOptions): IServiceTypeFieldModel;
   }
 
-export const ServiceTypeFieldModel = <IServiceTypeFieldModelStatic>sequelize.define('service_type_field ', {
+export const ServiceTypeFieldModel = <IServiceTypeFieldModelStatic>sequelize.define('service_type_field', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,

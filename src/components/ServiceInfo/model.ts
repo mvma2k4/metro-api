@@ -21,7 +21,6 @@ export interface IServiceInfoModel extends Model {
     base_price: Number
     permission_uuid:string;
 
-    tokens: AuthToken[];
 }
 
 export type IServiceInfoModelStatic = typeof Model & {
@@ -34,7 +33,7 @@ export type AuthToken = {
 };
 
 
-export const ServiceInfoModel = <IServiceInfoModelStatic>sequelize.define('service_type_field ', {
+export const ServiceInfoModel = <IServiceInfoModelStatic>sequelize.define('service_info', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,
@@ -59,9 +58,7 @@ export const ServiceInfoModel = <IServiceInfoModelStatic>sequelize.define('servi
   base_price: {
     type: DataTypes.DOUBLE,
     allowNull: false,
-  },
-    tokens: DataTypes.ARRAY(DataTypes.TEXT),
-    
+  },    
     permission_uuid: {
       type: DataTypes.UUID,
       allowNull:true

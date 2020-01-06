@@ -27,7 +27,7 @@ class DebitNoteValidation extends Validation {
     ): Joi.ValidationResult < IDebitNoteModel > {
         const schema: Joi.Schema = Joi.object().keys({
             code:Joi.string().required(),
-            current_date: Joi.string().required(),
+            creation_date: Joi.string().required(),
             expiration_date: Joi.string().required(),
             clientName:Joi.string().required(),
             providerName:Joi.string().required(),

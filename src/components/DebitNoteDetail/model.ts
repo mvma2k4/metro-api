@@ -39,7 +39,7 @@ export type AuthToken = {
 };
 
 
-export const DebitNoteDetailModel = <IDebitNoteDetailModelStatic>sequelize.define('debitnote', {
+export const DebitNoteDetailModel = <IDebitNoteDetailModelStatic>sequelize.define('debitnote_detail', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,

@@ -26,7 +26,7 @@ export type IServiceClientFeesModelStatic = typeof Model & {
   }
 
 
-export const ServiceClientFeesModel = <IServiceClientFeesModelStatic>sequelize.define('service_client_fees', {
+export const ServiceClientFeesModel = <IServiceClientFeesModelStatic>sequelize.define('service_client_fee', {
     uuid: {
         primaryKey: true,
         type: DataTypes.UUID,
@@ -51,3 +51,4 @@ export const ServiceClientFeesModel = <IServiceClientFeesModelStatic>sequelize.d
 });
 
 ServiceClientFeesModel.hasOne(PermissionModel, { foreignKey: 'uuid'});
+ServiceClientFeesModel.hasMany(FeesInfoFieldModel, {foreignKey: 'service_client_fees_uuid'});

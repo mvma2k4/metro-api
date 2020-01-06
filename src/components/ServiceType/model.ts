@@ -17,7 +17,6 @@ export interface IServiceTypeModel extends Model {
     name: string;
     permission_uuid:string;
 
-    tokens: AuthToken[];
 }
 
 export type IServiceTypeModelStatic = typeof Model & {
@@ -39,9 +38,7 @@ export const ServiceTypeModel = <IServiceTypeModelStatic>sequelize.define('servi
     name: {
       type: DataTypes.STRING(128),
       allowNull: false,
-  },
-    tokens: DataTypes.ARRAY(DataTypes.TEXT),
-    
+  },    
     permission_uuid: {
       type: DataTypes.UUID,
       allowNull:true
@@ -49,5 +46,5 @@ export const ServiceTypeModel = <IServiceTypeModelStatic>sequelize.define('servi
 });
 
 ServiceTypeModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
-ServiceTypeModel.hasMany(ServiceTypeFieldModel)
+ServiceTypeModel.hasMany(ServiceTypeFieldModel, {foreignKey: 'service_type_uuid'})
 

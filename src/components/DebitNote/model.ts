@@ -85,7 +85,7 @@ export const DebitNoteModel = <IDebitNoteModelStatic>sequelize.define('debitnote
         allowNull: false,
     },
 
-    current_date: {
+    creation_date: {
         type: DataTypes.DATE,
         allowNull: false,
     },

@@ -91,7 +91,7 @@ export const UserModel = <IUserModelStatic>sequelize.define('user', {
     }
 });
 
-UserModel.hasOne(PermissionModel, { foreignKey: 'permission_uuid'})
+UserModel.hasOne(PermissionModel, { foreignKey: 'uuid'})
 
 UserModel.beforeCreate(function(user, options) {
     return cryptPassword(user.password)
