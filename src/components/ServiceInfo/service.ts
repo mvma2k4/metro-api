@@ -22,6 +22,18 @@ const ServiceInfoService: IServiceInfoService = {
         }
     },
 
+     /**
+     * @returns {Promise < IServiceInfoModel[] >}
+     * @memberof ServiceInfoService
+     */
+    async findAllByProvider(id: string): Promise < IServiceInfoModel[] > {
+        try {
+            return await ServiceInfoModel.findAll({ where: { provider_uuid: id } });
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
     /**
      * @param {string} id
      * @returns {Promise < IServiceInfoModel >}

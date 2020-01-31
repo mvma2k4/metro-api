@@ -9,6 +9,8 @@ const router: Router = Router();
 
 router.get('/', ServiceInfoComponent.findAll);
 
+router.get('/provider/:id', ServiceInfoComponent.findAllByProvider);
+
 router.post('/', ServiceInfoComponent.create);
 
 router.put('/', ServiceInfoComponent.update);

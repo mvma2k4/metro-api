@@ -13,6 +13,12 @@ export interface IServiceInfoService {
     findAll(): Promise<IServiceInfoModel[]>;
 
     /**
+     * @returns {Promise<IServiceInfoModel[]>}
+     * @memberof IServiceInfoService
+     */
+    findAllByProvider(id: string): Promise<IServiceInfoModel[]>;
+
+    /**
      * @param {string} code
      * @returns {Promise<IServiceInfoModel>}
      * @memberof IServiceInfoService
